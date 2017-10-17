@@ -1,0 +1,164 @@
+﻿@model IEnumerable<Protfolio.Models.Project>
+
+@{
+    ViewBag.Title = "Projects";
+}
+
+<div class="jumbotron jumbotron-fluid col-md-12 homeJumbo text-center">
+    <div class="container-fluid">
+        <h1>Projects</h1>
+        <p style="color:#efd469">My most recent projects</p>
+    </div>
+</div>
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div id="vidSection" class="container-fluid hideme noOpacity">
+    <hr />
+    <div class="jumbotron" id="vidJumbo">
+            <a id="vidButton" class="btn btn-default btn-lg" onclick="backToNormal()">Back</a>     
+            
+        <div class="row">
+            <div id="vidContainer" class="embed-responsive embed-responsive-16by9 col-md-offset-1 col-md-4">
+                <iframe id="vid" class="embed-responsive-item" src=""></iframe>
+            </div>
+            <h2 id="name" style="margin-top:0px"></h2>
+            <div id="description" class="col-md-4"></div>
+            
+            
+            
+            
+        </div>
+        
+       
+    </div>
+    <hr />
+</div>
+    <div class="gallery" id="gallery">
+        @for (int i = 0; i < Model.Count(); i += 3)
+        {
+
+            <div class="row bottom-margin col-centered">
+                @foreach (var item in Model.Skip(i).Take(3))
+                {
+
+                    <div class="col-md-4">
+
+
+                        <div class="thumbnail" onclick="thumbClicked('@item.Video','@item.Description','@item.GitLink','@item.tagListing','@item.Name')">
+
+
+                            <img src="@item.Image" />
+                            <div class="caption">
+                                <p>
+                                    <h2>@item.Name</h2>
+                                </p>
+                                <p id="itemDescription">
+                                    @Html.DisplayFor(modelItem => item.Summary) 
+                                </p>
+                                <p>
+                                    @item.UploadDate.Date.ToShortDateString()
+                                </p>
+                                <p>
+                                    @if (item.tagListing != null)
+                                    {
+                                        foreach (string s in item.tagListing.Split(',').ToList().Take(3))
+                                        {
+                                            
+                                            <span class="label label-warning" style="font-size:20px">@s</span>
+                                            
+                                        }
+                                    }
+                                    
+                                </p>
+                            
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+
+
+
+@section scripts{
+    <script type="text/javascript">
+
+
+
+
+        function thumbClicked(video,desc,gitlink,tagslist,name) {
+
+            var tags = tagslist.split(',');
+            
+            $('#name').html(name + ' | Github: ').append('<a href="" target="_blank" id="gitlink" style="margin-left:5px"><i class="fa fa-github" id="gitIcon" style="font-size:50px"></i></a>');
+            $('#vid').attr("src", video);
+            $('#description').html(desc).append("</br>");
+            tags.forEach(function (t) {
+                $('#description').append('<span class="label label-warning" style="font-size:20px; margin-right:5px;">' + t + '</span>')
+            })
+            
+                
+            
+            $('#gitlink').attr("href", gitlink);
+            $('.thumbnail').animate({ 'opacity': '0' }, 300).promise().done(function () {
+                $(this).addClass("hideme")
+                $('#vidSection').removeClass("hideme").animate({
+                    'opacity': '1'
+                }, 300);
+
+
+            });
+
+
+        }
+
+        function backToNormal() {
+
+
+            $('#vidSection').addClass("hideme").attr("src", "").css("opacity", "0");
+            $('#vid').attr("src","");
+            $('#description').html("");
+            $('#name').html("");
+            showAllThumbs();
+
+
+        }
+
+        function showAllThumbs() {
+            $('.thumbnail').removeClass("hideme").animate({'opacity':'1'}, 300);
+
+        }
+
+
+
+
+
+
+
+    </script>
+}
+
+
+<!--
+var opacity = 0;
+        var id2 = setInterval(animate,50);
+        function animate(){
+            if (opacity == 1) {
+                clearInterval(id);
+            } else {
+                opacity+=0.1; 
+                vid.style.opacity = opacity;  
+            }
+        }    
+-->
+
+ 
+
+
+

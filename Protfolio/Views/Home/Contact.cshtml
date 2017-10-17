@@ -1,0 +1,55 @@
+﻿@model Protfolio.Models.ContactForm
+
+@{
+    ViewBag.Title = "Contact Me";
+}
+<div class="jumbotron jumbotron-fluid col-md-12 homeJumbo text-center">
+    <div class="container-fluid">
+        <h1>Contact Me</h1>
+        <div class="col-md-4 col-centered">
+            <p>
+                <a href="mailto:orpris12@gmail.com"><i class="fa fa-envelope" style="font-size:30px"></i></a>   |   
+                <a href="https://www.linkedin.com/in/or-priesender/" target="_blank"><i class="fa fa-linkedin" style="font-size:30px"></i></a>
+            </p>
+            
+           
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="col-md-4 col-centered">
+       
+            @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { style = "padding-left:12%", id="contactForm" }))
+            {
+                <div class="form-group">
+                    <label for="fullName">Name </label>
+                    @Html.TextBoxFor(m => m.fullName, new { @class = "form-control" })
+
+                    <label for="email">Email </label>
+                    @Html.TextBoxFor(m => m.email, new { @class = "form-control", @type = "email" })
+
+                    <label for="content">Content </label>
+                    @Html.TextAreaFor(m => m.content, new { @class = "form-control", @rows="5" })
+                   
+
+                    <input type="submit" class="btn btn-default" id="submitButton" style="margin-top:10%" />
+                </div>
+            }
+            
+        
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+    $('#contactForm').submit(function () {
+        $(this).submit().reset();
+        return false;
+    });
+
+    </script>
+}
