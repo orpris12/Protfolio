@@ -19,7 +19,7 @@ namespace Protfolio.Controllers
             var addr = Request["mailaddr"];
             if(addr != null)
             {
-                MailMessage mail = new MailMessage("orprisPortfolio@gmail.com", "orpris12@gmail.com");
+                MailMessage mail = new MailMessage("portfoliomail@mail.com", addr);
                 SmtpClient client = new SmtpClient();
                 client.Port = 25;
                 client.Host = "smtp.gmail.com";
@@ -27,7 +27,7 @@ namespace Protfolio.Controllers
                 client.Timeout = 10000;
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.UseDefaultCredentials = false;
-                client.Credentials = new System.Net.NetworkCredential("orprisPortfolio@gmail.com", "Kaki121191");
+                client.Credentials = new System.Net.NetworkCredential("username", "password");
 
                 mail.Subject = "Or Priesender - Resume";
                 mail.Body = "Hello !" + Environment.NewLine + "This is an automatic reply to your resume request." + Environment.NewLine + "My resume is attached, Thank you for your interest.";
@@ -72,7 +72,7 @@ namespace Protfolio.Controllers
             {
                 
 
-                MailMessage mail = new MailMessage("orprisPortfolio@gmail.com", "orpris12@gmail.com");
+                MailMessage mail = new MailMessage("portfoliomail@mymail.com", "mymail@mymail.com");
                 SmtpClient client = new SmtpClient();
                 client.Port = 25;
                 client.Host = "smtp.gmail.com";
@@ -80,7 +80,7 @@ namespace Protfolio.Controllers
                 client.Timeout = 10000;
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.UseDefaultCredentials = false;
-                client.Credentials = new System.Net.NetworkCredential("orprisPortfolio@gmail.com", "Kaki121191");
+                client.Credentials = new System.Net.NetworkCredential("username", "password");
 
                 mail.Subject = "Potfolio Message !";
                 mail.Body = "Name : " + form.fullName + Environment.NewLine + "Email : " + form.email + Environment.NewLine + "Content : " + form.content;
